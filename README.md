@@ -10,6 +10,12 @@ This package exposes the geometric avatar variants used in KyaraFlip plus the cu
 pnpm add @nexa-llc/kyaraflip-avatar-react
 ```
 
+Git installs are also supported because the repository includes the built `dist/` output:
+
+```bash
+pnpm add github:NexA-LLC/kyaraflip-avatar-react
+```
+
 ## Usage
 
 ```tsx
@@ -45,6 +51,7 @@ export function Example() {
 - `mosaic`, `orb`, and `beam` use deterministic palette-based SVG rendering.
 - `cat` and `dog` use the bundled KyaraFlip SVG parts and do not require any external asset hosting.
 - The package is SSR-safe and ships both ESM and CommonJS builds.
+- `dist/` is committed so git-based installs can resolve the exported entrypoints without an extra publish step.
 
 ## Credits
 

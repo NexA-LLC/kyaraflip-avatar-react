@@ -31,7 +31,8 @@
   },
   "scripts": {
     "build": "tsup",
-    "check": "tsc --noEmit"
+    "check": "tsc --noEmit",
+    "prepack": "pnpm build"
   },
   "keywords": [
     "avatar",
