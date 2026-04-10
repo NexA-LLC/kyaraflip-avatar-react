@@ -1,0 +1,6 @@
+export { Avatar } from './Avatar'
+export type { AvatarProps } from './Avatar'
+export { AVATAR_VARIANTS, isAvatarVariant } from './avatar/types'
+export type { AvatarVariant } from './avatar/types'
+export { getPaletteIndex, niceColorPalettes, selectPalette } from './avatar/palette'
+export type { AvatarPalette } from './avatar/data/niceColorPalettes'

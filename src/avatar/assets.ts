@@ -1,0 +1,50 @@
+import inuEar01 from '../assets/avatar/inu/inu_ear_01.svg'
+import inuEar02 from '../assets/avatar/inu/inu_ear_02.svg'
+import inuEar03 from '../assets/avatar/inu/inu_ear_03.svg'
+import inuEar04 from '../assets/avatar/inu/inu_ear_04.svg'
+import inuEar05 from '../assets/avatar/inu/inu_ear_05.svg'
+import inuEar06 from '../assets/avatar/inu/inu_ear_06.svg'
+import inuEar07 from '../assets/avatar/inu/inu_ear_07.svg'
+import inuEar08 from '../assets/avatar/inu/inu_ear_08.svg'
+import inuEar09 from '../assets/avatar/inu/inu_ear_09.svg'
+import inuEmotion01 from '../assets/avatar/inu/inu_emotion_01.svg'
+import inuEmotion02 from '../assets/avatar/inu/inu_emotion_02.svg'
+import inuEmotion03 from '../assets/avatar/inu/inu_emotion_03.svg'
+import inuEmotion04 from '../assets/avatar/inu/inu_emotion_04.svg'
+import inuFace01 from '../assets/avatar/inu/inu_face_01.svg'
+import inuFace02 from '../assets/avatar/inu/inu_face_02.svg'
+import inuFace03 from '../assets/avatar/inu/inu_face_03.svg'
+import inuFace04 from '../assets/avatar/inu/inu_face_04.svg'
+import inuFace05 from '../assets/avatar/inu/inu_face_05.svg'
+import inuFace06 from '../assets/avatar/inu/inu_face_06.svg'
+import inuFace07 from '../assets/avatar/inu/inu_face_07.svg'
+import nekoEar01 from '../assets/avatar/neko/neko_ear_01.svg'
+import nekoEar02 from '../assets/avatar/neko/neko_ear_02.svg'
+import nekoEar03 from '../assets/avatar/neko/neko_ear_03.svg'
+import nekoEar04 from '../assets/avatar/neko/neko_ear_04.svg'
+import nekoEar05 from '../assets/avatar/neko/neko_ear_05.svg'
+import nekoEar06 from '../assets/avatar/neko/neko_ear_06.svg'
+import nekoEmotion01 from '../assets/avatar/neko/neko_emotion_01.svg'
+import nekoEmotion02 from '../assets/avatar/neko/neko_emotion_02.svg'
+import nekoEmotion03 from '../assets/avatar/neko/neko_emotion_03.svg'
+import nekoEmotion04 from '../assets/avatar/neko/neko_emotion_04.svg'
+import nekoFace01 from '../assets/avatar/neko/neko_face_01.svg'
+import nekoFace02 from '../assets/avatar/neko/neko_face_02.svg'
+import nekoFace03 from '../assets/avatar/neko/neko_face_03.svg'
+import nekoFace04 from '../assets/avatar/neko/neko_face_04.svg'
+import nekoFace05 from '../assets/avatar/neko/neko_face_05.svg'
+import nekoFace06 from '../assets/avatar/neko/neko_face_06.svg'
+import nekoFace07 from '../assets/avatar/neko/neko_face_07.svg'
+import nekoFace08 from '../assets/avatar/neko/neko_face_08.svg'
+import nekoHige01 from '../assets/avatar/neko/neko_hige_01.svg'
+import nekoHige02 from '../assets/avatar/neko/neko_hige_02.svg'
+import nekoHige03 from '../assets/avatar/neko/neko_hige_03.svg'
+
+export const dogInu_earAssets = [inuEar01, inuEar02, inuEar03, inuEar04, inuEar05, inuEar06, inuEar07, inuEar08, inuEar09] as const
+export const dogInu_faceAssets = [inuFace01, inuFace02, inuFace03, inuFace04, inuFace05, inuFace06, inuFace07] as const
+export const dogInu_emotionAssets = [inuEmotion01, inuEmotion02, inuEmotion03, inuEmotion04] as const
+
+export const catNeko_earAssets = [nekoEar01, nekoEar02, nekoEar03, nekoEar04, nekoEar05, nekoEar06] as const
+export const catNeko_faceAssets = [nekoFace01, nekoFace02, nekoFace03, nekoFace04, nekoFace05, nekoFace06, nekoFace07, nekoFace08] as const
+export const catNeko_emotionAssets = [nekoEmotion01, nekoEmotion02, nekoEmotion03, nekoEmotion04] as const
+export const catNeko_higeAssets = [nekoHige01, nekoHige02, nekoHige03] as const

@@ -1,0 +1,55 @@
+{
+  "name": "@nexa-llc/kyaraflip-avatar-react",
+  "version": "0.1.0",
+  "description": "KyaraFlip avatar React components with geometric and cute animal variants.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NexA-LLC/kyaraflip-avatar-react.git"
+  },
+  "homepage": "https://github.com/NexA-LLC/kyaraflip-avatar-react#readme",
+  "bugs": {
+    "url": "https://github.com/NexA-LLC/kyaraflip-avatar-react/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [
+    "avatar",
+    "react",
+    "svg",
+    "kyaraflip"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.23.0"
+}
