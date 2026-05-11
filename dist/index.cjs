@@ -22,9 +22,12 @@ var index_exports = {};
 __export(index_exports, {
   AVATAR_VARIANTS: () => AVATAR_VARIANTS,
   Avatar: () => Avatar,
+  LiveCardShip: () => LiveCardShip,
+  LiveCardShooter: () => LiveCardShooter,
   getPaletteIndex: () => getPaletteIndex,
   isAvatarVariant: () => isAvatarVariant,
   niceColorPalettes: () => niceColorPalettes,
+  renderLiveCardShipParts: () => renderLiveCardShipParts,
   selectPalette: () => selectPalette
 });
 module.exports = __toCommonJS(index_exports);
@@ -481,6 +484,455 @@ function Avatar({
   );
 }
 
+// src/LiveCardShip.tsx
+var import_jsx_runtime3 = require("react/jsx-runtime");
+var RARITIES = ["N", "R", "SR", "XR"];
+var ELEMENTS = ["Spark", "Wave", "Bloom", "Pulse"];
+function compactLabel(name) {
+  const normalized = name.trim();
+  if (normalized.length <= 12) return normalized;
+  return `${normalized.slice(0, 10)}..`;
+}
+function renderFallbackArtwork(name, parts) {
+  const random = createSeededRandom(`${name}-live-card-artwork`);
+  const orbX = randomBetween(random, 34, 62);
+  const orbY = randomBetween(random, 39, 56);
+  const pathOffset = randomBetween(random, -8, 8);
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("g", { children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("rect", { x: "26", y: "34", width: "44", height: "30", rx: "5", fill: parts.hull, opacity: "0.24" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+      "path",
+      {
+        d: `M29 58 C38 ${44 + pathOffset} 45 ${62 - pathOffset} 68 43`,
+        fill: "none",
+        stroke: parts.cardFoil,
+        strokeWidth: "3",
+        strokeLinecap: "round",
+        opacity: "0.82"
+      }
+    ),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: orbX, cy: orbY, r: "9", fill: parts.glow, opacity: "0.92" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M48 38 L58 58 H38 Z", fill: parts.cockpit, stroke: "#0f172a", strokeWidth: "1.5", opacity: "0.92" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M33 61 H63", stroke: "#0f172a", strokeWidth: "3", strokeLinecap: "round", opacity: "0.5" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "36", cy: "40", r: "2", fill: "#f8fafc", opacity: "0.86" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "62", cy: "58", r: "1.8", fill: "#f8fafc", opacity: "0.72" })
+  ] });
+}
+function renderLiveCardShipParts(name, colors) {
+  const palette = selectPalette(name, colors ? [...colors] : void 0);
+  const random = createSeededRandom(`${name}-live-card-ship`);
+  const rarityIndex = Math.min(RARITIES.length - 1, Math.floor(random() * RARITIES.length));
+  const elementIndex = Math.min(ELEMENTS.length - 1, Math.floor(random() * ELEMENTS.length));
+  return {
+    hull: palette[0] ?? "#16324f",
+    cockpit: palette[1] ?? "#f5f7fb",
+    trim: palette[2] ?? "#62d2ff",
+    glow: palette[3] ?? "#ffcf5a",
+    cardBack: palette[4] ?? "#f8fafc",
+    cardFoil: palette[5] ?? "#a78bfa",
+    rarity: RARITIES[rarityIndex],
+    element: ELEMENTS[elementIndex],
+    serial: Math.floor(random() * 1048575).toString(16).padStart(5, "0").toUpperCase(),
+    wingSweep: randomBetween(random, 4, 10),
+    finOffset: randomBetween(random, 1.5, 5.5),
+    engineCount: random() > 0.58 ? 3 : 2
+  };
+}
+function LiveCardShip({
+  name,
+  imageUrl,
+  subtitle,
+  variant: _variant,
+  size = 80,
+  title,
+  className,
+  style
+}) {
+  const parts = renderLiveCardShipParts(name);
+  const labelledTitle = title ?? `${name} ship`;
+  const cardLabel = compactLabel(name);
+  const cardSubtitle = compactLabel(subtitle ?? parts.element);
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
+    "svg",
+    {
+      width: size,
+      height: size,
+      viewBox: "0 0 96 112",
+      role: "img",
+      "aria-label": labelledTitle,
+      className,
+      style,
+      focusable: "false",
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "rect",
+          {
+            x: "17",
+            y: "18",
+            width: "62",
+            height: "70",
+            rx: "8",
+            fill: parts.cardBack,
+            stroke: "#f8fafc",
+            strokeWidth: "2",
+            opacity: "0.96"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M22 27 H74", stroke: parts.cardFoil, strokeWidth: "3", strokeLinecap: "round", opacity: "0.8" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("path", { d: "M22 78 H74", stroke: parts.cardFoil, strokeWidth: "2", strokeLinecap: "round", opacity: "0.72" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("rect", { x: "21", y: "22", width: "26", height: "10", rx: "3", fill: "#0f172a", opacity: "0.86" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("text", { x: "25", y: "30", fill: "#f8fafc", fontSize: "7", fontWeight: "800", children: "LC" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("text", { x: "55", y: "31", fill: "#0f172a", fontSize: "8", fontWeight: "900", children: parts.rarity }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "69", cy: "28", r: "5", fill: parts.glow, stroke: "#0f172a", strokeWidth: "1.3" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "path",
+          {
+            d: `M48 5 L69 ${66 + parts.wingSweep} L59 99 L48 91 L37 99 L27 ${66 + parts.wingSweep} Z`,
+            fill: parts.hull,
+            stroke: "#0f172a",
+            strokeWidth: "3",
+            strokeLinejoin: "round"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "path",
+          {
+            d: `M30 ${58 + parts.finOffset} L6 82 L34 88 Z`,
+            fill: parts.trim,
+            stroke: "#0f172a",
+            strokeWidth: "3",
+            strokeLinejoin: "round"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "path",
+          {
+            d: `M66 ${58 + parts.finOffset} L90 82 L62 88 Z`,
+            fill: parts.trim,
+            stroke: "#0f172a",
+            strokeWidth: "3",
+            strokeLinejoin: "round"
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "path",
+          {
+            d: "M48 13 C58 28 62 46 57 62 C54 72 42 72 39 62 C34 46 38 28 48 13 Z",
+            fill: parts.cockpit,
+            opacity: "0.94",
+            stroke: "#0f172a",
+            strokeWidth: "2"
+          }
+        ),
+        imageUrl ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
+          "image",
+          {
+            href: imageUrl,
+            x: "25",
+            y: "33",
+            width: "46",
+            height: "32",
+            preserveAspectRatio: "xMidYMid slice",
+            style: { clipPath: "inset(0 round 5px)" }
+          }
+        ) : renderFallbackArtwork(name, parts),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("rect", { x: "25", y: "67", width: "46", height: "11", rx: "3", fill: "#0f172a", opacity: "0.88" }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("text", { x: "48", y: "75", fill: "#f8fafc", fontSize: "7", fontWeight: "800", textAnchor: "middle", children: cardLabel }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("text", { x: "48", y: "83", fill: "#0f172a", fontSize: "5.5", fontWeight: "900", textAnchor: "middle", children: cardSubtitle }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("text", { x: "48", y: "86", fill: "#0f172a", fontSize: "6.5", fontWeight: "800", textAnchor: "middle", children: [
+          "#",
+          parts.serial
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("rect", { x: "41", y: "81", width: "14", height: "18", rx: "5", fill: "#0f172a", opacity: "0.8" }),
+        parts.engineCount === 3 ? /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "48", cy: "101", r: "5", fill: parts.glow, opacity: "0.9" }) : null,
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "38", cy: "99", r: "5", fill: parts.glow }),
+        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("circle", { cx: "58", cy: "99", r: "5", fill: parts.glow })
+      ]
+    }
+  );
+}
+
+// src/LiveCardShooter.tsx
+var import_react = require("react");
+var import_jsx_runtime4 = require("react/jsx-runtime");
+var WIDTH = 360;
+var HEIGHT = 560;
+var DEFAULT_ENEMY_CARDS = [
+  { name: "Mirror Route", subtitle: "Scenario Artifact" },
+  { name: "Neon Shrine", subtitle: "World Artifact" },
+  { name: "Star Courier", subtitle: "Character Artifact" },
+  { name: "Echo Relic", subtitle: "Item Artifact" }
+];
+function initialGameState() {
+  return {
+    mode: "playing",
+    player: { x: WIDTH / 2, y: HEIGHT - 78 },
+    bullets: [],
+    enemies: [
+      { id: 1, card: DEFAULT_ENEMY_CARDS[0], variant: "dog", x: 100, y: 82, hp: 2, speed: 26 },
+      { id: 2, card: DEFAULT_ENEMY_CARDS[1], variant: "cat", x: 246, y: 34, hp: 2, speed: 32 }
+    ],
+    score: 0,
+    lives: 3,
+    cooldown: 0,
+    spawnTimer: 2.2,
+    nextId: 3
+  };
+}
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
+}
+function overlaps(a, ar, b, br) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  return dx * dx + dy * dy <= (ar + br) * (ar + br);
+}
+function stepGame(state, dt, keys, enemyCards) {
+  if (state.mode === "gameOver") return state;
+  const playerSpeed = 210;
+  const next = {
+    ...state,
+    player: { ...state.player },
+    bullets: state.bullets.map((bullet) => ({ ...bullet, y: bullet.y - 360 * dt })),
+    enemies: state.enemies.map((enemy) => ({ ...enemy, y: enemy.y + enemy.speed * dt })),
+    cooldown: Math.max(0, state.cooldown - dt),
+    spawnTimer: state.spawnTimer - dt
+  };
+  const xMove = (keys.has("ArrowRight") ? 1 : 0) - (keys.has("ArrowLeft") ? 1 : 0);
+  const yMove = (keys.has("ArrowDown") ? 1 : 0) - (keys.has("ArrowUp") ? 1 : 0);
+  next.player.x = clamp(next.player.x + xMove * playerSpeed * dt, 42, WIDTH - 42);
+  next.player.y = clamp(next.player.y + yMove * playerSpeed * dt, 120, HEIGHT - 56);
+  if ((keys.has(" ") || keys.has("Spacebar")) && next.cooldown <= 0) {
+    next.bullets.push({ id: next.nextId, x: next.player.x, y: next.player.y - 48 });
+    next.nextId += 1;
+    next.cooldown = 0.18;
+  }
+  if (next.spawnTimer <= 0) {
+    const slot = next.nextId % 4;
+    const card = enemyCards[slot % enemyCards.length] ?? { name: `Live Card ${slot + 1}` };
+    next.enemies.push({
+      id: next.nextId,
+      card,
+      variant: slot % 2 === 0 ? "cat" : "dog",
+      x: 54 + slot * 82,
+      y: -28,
+      hp: 2,
+      speed: 28 + slot * 7
+    });
+    next.nextId += 1;
+    next.spawnTimer = 2.1;
+  }
+  const remainingBullets = [];
+  const remainingEnemies = next.enemies.map((enemy) => ({ ...enemy }));
+  for (const bullet of next.bullets) {
+    if (bullet.y < -12) continue;
+    const hit = remainingEnemies.find((enemy) => enemy.hp > 0 && overlaps(bullet, 6, enemy, 28));
+    if (hit) {
+      hit.hp -= 1;
+      if (hit.hp <= 0) next.score += 100;
+    } else {
+      remainingBullets.push(bullet);
+    }
+  }
+  next.bullets = remainingBullets;
+  next.enemies = [];
+  for (const enemy of remainingEnemies) {
+    if (enemy.hp <= 0) continue;
+    if (overlaps(enemy, 30, next.player, 32) || enemy.y > HEIGHT + 28) {
+      next.lives -= 1;
+    } else {
+      next.enemies.push(enemy);
+    }
+  }
+  if (next.lives <= 0) {
+    next.mode = "gameOver";
+    next.lives = 0;
+  }
+  return next;
+}
+function renderGameState(state) {
+  return JSON.stringify({
+    coordinates: "origin top-left, x right, y down",
+    mode: state.mode,
+    player: {
+      x: Math.round(state.player.x),
+      y: Math.round(state.player.y),
+      cooldown: Number(state.cooldown.toFixed(2))
+    },
+    bullets: state.bullets.slice(0, 6).map((bullet) => ({
+      x: Math.round(bullet.x),
+      y: Math.round(bullet.y)
+    })),
+    enemies: state.enemies.slice(0, 6).map((enemy) => ({
+      name: enemy.card.name,
+      subtitle: enemy.card.subtitle ?? null,
+      liveCard: true,
+      x: Math.round(enemy.x),
+      y: Math.round(enemy.y),
+      hp: enemy.hp
+    })),
+    score: state.score,
+    lives: state.lives
+  });
+}
+function LiveCardShooter({
+  playerName = "Kyara",
+  playerCard,
+  enemyNames,
+  enemyCards,
+  width = WIDTH,
+  height = HEIGHT,
+  className
+}) {
+  const [state, setState] = (0, import_react.useState)(() => initialGameState());
+  const stateRef = (0, import_react.useRef)(state);
+  const keysRef = (0, import_react.useRef)(/* @__PURE__ */ new Set());
+  const rafRef = (0, import_react.useRef)(null);
+  const lastTimeRef = (0, import_react.useRef)(null);
+  const resolvedPlayerCard = (0, import_react.useMemo)(
+    () => playerCard ?? { name: playerName, subtitle: "Playable Artifact" },
+    [playerCard, playerName]
+  );
+  const resolvedEnemyCards = (0, import_react.useMemo)(
+    () => enemyCards ?? enemyNames?.map((name, index) => ({
+      name,
+      subtitle: DEFAULT_ENEMY_CARDS[index % DEFAULT_ENEMY_CARDS.length]?.subtitle ?? "Artifact"
+    })) ?? DEFAULT_ENEMY_CARDS,
+    [enemyCards, enemyNames]
+  );
+  const stars = (0, import_react.useMemo)(
+    () => Array.from({ length: 34 }, (_, index) => ({
+      x: index * 83 % WIDTH,
+      y: index * 137 % HEIGHT,
+      r: 0.7 + index % 3 * 0.45,
+      opacity: 0.24 + index % 5 * 0.12
+    })),
+    []
+  );
+  (0, import_react.useEffect)(() => {
+    stateRef.current = state;
+  }, [state]);
+  (0, import_react.useEffect)(() => {
+    const sync = (next) => {
+      stateRef.current = next;
+      setState(next);
+    };
+    const advance = (ms) => {
+      const steps = Math.max(1, Math.round(ms / (1e3 / 60)));
+      let next = stateRef.current;
+      for (let i = 0; i < steps; i += 1) {
+        next = stepGame(next, 1 / 60, keysRef.current, resolvedEnemyCards);
+      }
+      sync(next);
+    };
+    const tick = (time) => {
+      const lastTime = lastTimeRef.current ?? time;
+      const dt = Math.min(0.05, (time - lastTime) / 1e3);
+      lastTimeRef.current = time;
+      sync(stepGame(stateRef.current, dt, keysRef.current, resolvedEnemyCards));
+      rafRef.current = window.requestAnimationFrame(tick);
+    };
+    const keydown = (event) => {
+      if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", " ", "Spacebar"].includes(event.key)) {
+        keysRef.current.add(event.key);
+        event.preventDefault();
+      }
+      if (event.key.toLowerCase() === "r") {
+        sync(initialGameState());
+      }
+    };
+    const keyup = (event) => {
+      keysRef.current.delete(event.key);
+    };
+    const renderText = () => renderGameState(stateRef.current);
+    window.render_game_to_text = renderText;
+    window.advanceTime = advance;
+    window.addEventListener("keydown", keydown);
+    window.addEventListener("keyup", keyup);
+    rafRef.current = window.requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current !== null) window.cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("keydown", keydown);
+      window.removeEventListener("keyup", keyup);
+      if (window.render_game_to_text === renderText) window.render_game_to_text = void 0;
+      if (window.advanceTime === advance) window.advanceTime = void 0;
+    };
+  }, [resolvedEnemyCards]);
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+    "div",
+    {
+      className,
+      style: {
+        width,
+        fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+        color: "#e5edf8",
+        userSelect: "none"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+          "svg",
+          {
+            width,
+            height,
+            viewBox: `0 0 ${WIDTH} ${HEIGHT}`,
+            role: "img",
+            "aria-label": "KyaraFlip live card shooter",
+            style: { display: "block", borderRadius: 8, background: "#101827" },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: WIDTH, height: HEIGHT, fill: "#101827" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M0 0 H360 V560 H0 Z", fill: "#142036" }),
+              stars.map((star) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("circle", { cx: star.x, cy: star.y, r: star.r, fill: "#f8fbff", opacity: star.opacity }, `${star.x}-${star.y}`)),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("text", { x: "16", y: "28", fill: "#dbeafe", fontSize: "14", fontWeight: "700", children: [
+                "SCORE ",
+                state.score
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("text", { x: "282", y: "28", fill: "#fecaca", fontSize: "14", fontWeight: "700", children: [
+                "LIFE ",
+                state.lives
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "28", fill: "#c4b5fd", fontSize: "11", fontWeight: "800", textAnchor: "middle", children: "LIVE CARD RAID" }),
+              state.bullets.map((bullet) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: bullet.x - 3, y: bullet.y - 16, width: "6", height: "20", rx: "3", fill: "#7dd3fc" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("circle", { cx: bullet.x, cy: bullet.y - 18, r: "5", fill: "#e0f2fe", opacity: "0.85" })
+              ] }, bullet.id)),
+              state.enemies.map((enemy) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${enemy.x - 34} ${enemy.y - 40}) scale(0.7)`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                LiveCardShip,
+                {
+                  name: enemy.card.name,
+                  imageUrl: enemy.card.imageUrl,
+                  subtitle: enemy.card.subtitle,
+                  variant: enemy.variant,
+                  size: 96
+                }
+              ) }, enemy.id)),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${state.player.x - 48} ${state.player.y - 56})`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                LiveCardShip,
+                {
+                  name: resolvedPlayerCard.name,
+                  imageUrl: resolvedPlayerCard.imageUrl,
+                  subtitle: resolvedPlayerCard.subtitle,
+                  variant: "cat",
+                  size: 96
+                }
+              ) }),
+              state.mode === "gameOver" ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: "48", y: "218", width: "264", height: "104", rx: "8", fill: "#0f172a", opacity: "0.92" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "262", fill: "#f8fafc", fontSize: "24", fontWeight: "800", textAnchor: "middle", children: "GAME OVER" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "292", fill: "#cbd5e1", fontSize: "14", textAnchor: "middle", children: "Press R to restart" })
+              ] }) : null
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 12, paddingTop: 8, fontSize: 12 }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Move: Arrow keys" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Shoot: Space" }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Restart: R" })
+        ] })
+      ]
+    }
+  );
+}
+
 // src/avatar/types.ts
 var AVATAR_VARIANTS = ["mosaic", "orb", "beam", "cat", "dog"];
 function isAvatarVariant(value) {
@@ -490,9 +942,12 @@ function isAvatarVariant(value) {
 0 && (module.exports = {
   AVATAR_VARIANTS,
   Avatar,
+  LiveCardShip,
+  LiveCardShooter,
   getPaletteIndex,
   isAvatarVariant,
   niceColorPalettes,
+  renderLiveCardShipParts,
   selectPalette
 });
 //# sourceMappingURL=index.cjs.map
