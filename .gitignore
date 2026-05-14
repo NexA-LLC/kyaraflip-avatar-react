@@ -1,2 +1,5 @@
 node_modules
 *.tsbuildinfo
+
+# NexA tester artifacts
+.nexa/tester/runs/
