@@ -775,6 +775,73 @@ function renderGameState(state) {
     lives: state.lives
   });
 }
+function LiveCardShooterHud({ state }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+    "div",
+    {
+      "aria-label": "Live card shooter status",
+      "aria-live": "polite",
+      style: {
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        color: "#e5edf8"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+          "div",
+          {
+            style: {
+              display: "grid",
+              gridTemplateColumns: "1fr auto 1fr",
+              alignItems: "center",
+              padding: "12px 16px",
+              fontSize: 14,
+              fontWeight: 800,
+              lineHeight: 1
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { children: [
+                "SCORE ",
+                state.score
+              ] }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { style: { color: "#c4b5fd", fontSize: 11, letterSpacing: 0 }, children: "LIVE CARD RAID" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("span", { style: { color: "#fecaca", textAlign: "right" }, children: [
+                "LIFE ",
+                state.lives
+              ] })
+            ]
+          }
+        ),
+        state.mode === "gameOver" ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+          "div",
+          {
+            role: "status",
+            style: {
+              position: "absolute",
+              left: "13.333%",
+              right: "13.333%",
+              top: "38.9%",
+              minHeight: 104,
+              display: "grid",
+              placeItems: "center",
+              gap: 8,
+              padding: 18,
+              borderRadius: 8,
+              background: "rgba(15, 23, 42, 0.92)",
+              boxSizing: "border-box",
+              textAlign: "center"
+            },
+            children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("strong", { style: { color: "#f8fafc", fontSize: 24, lineHeight: 1 }, children: "GAME OVER" }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { style: { color: "#cbd5e1", fontSize: 14 }, children: "Press R to restart" })
+            ]
+          }
+        ) : null
+      ]
+    }
+  );
+}
 function LiveCardShooter({
   playerName = "Kyara",
   playerCard,
@@ -869,60 +936,59 @@ function LiveCardShooter({
         userSelect: "none"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
-          "svg",
-          {
-            width,
-            height,
-            viewBox: `0 0 ${WIDTH} ${HEIGHT}`,
-            role: "img",
-            "aria-label": "KyaraFlip live card shooter",
-            style: { display: "block", borderRadius: 8, background: "#101827" },
-            children: [
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: WIDTH, height: HEIGHT, fill: "#101827" }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M0 0 H360 V560 H0 Z", fill: "#142036" }),
-              stars.map((star) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("circle", { cx: star.x, cy: star.y, r: star.r, fill: "#f8fbff", opacity: star.opacity }, `${star.x}-${star.y}`)),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("text", { x: "16", y: "28", fill: "#dbeafe", fontSize: "14", fontWeight: "700", children: [
-                "SCORE ",
-                state.score
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("text", { x: "282", y: "28", fill: "#fecaca", fontSize: "14", fontWeight: "700", children: [
-                "LIFE ",
-                state.lives
-              ] }),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "28", fill: "#c4b5fd", fontSize: "11", fontWeight: "800", textAnchor: "middle", children: "LIVE CARD RAID" }),
-              state.bullets.map((bullet) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: bullet.x - 3, y: bullet.y - 16, width: "6", height: "20", rx: "3", fill: "#7dd3fc" }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("circle", { cx: bullet.x, cy: bullet.y - 18, r: "5", fill: "#e0f2fe", opacity: "0.85" })
-              ] }, bullet.id)),
-              state.enemies.map((enemy) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${enemy.x - 34} ${enemy.y - 40}) scale(0.7)`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-                LiveCardShip,
-                {
-                  name: enemy.card.name,
-                  imageUrl: enemy.card.imageUrl,
-                  subtitle: enemy.card.subtitle,
-                  variant: enemy.variant,
-                  size: 96
-                }
-              ) }, enemy.id)),
-              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${state.player.x - 48} ${state.player.y - 56})`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-                LiveCardShip,
-                {
-                  name: resolvedPlayerCard.name,
-                  imageUrl: resolvedPlayerCard.imageUrl,
-                  subtitle: resolvedPlayerCard.subtitle,
-                  variant: "cat",
-                  size: 96
-                }
-              ) }),
-              state.mode === "gameOver" ? /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { children: [
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: "48", y: "218", width: "264", height: "104", rx: "8", fill: "#0f172a", opacity: "0.92" }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "262", fill: "#f8fafc", fontSize: "24", fontWeight: "800", textAnchor: "middle", children: "GAME OVER" }),
-                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("text", { x: "180", y: "292", fill: "#cbd5e1", fontSize: "14", textAnchor: "middle", children: "Press R to restart" })
-              ] }) : null
-            ]
-          }
-        ),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { style: { position: "relative", width, height }, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+            "svg",
+            {
+              width,
+              height,
+              viewBox: `0 0 ${WIDTH} ${HEIGHT}`,
+              role: "img",
+              "aria-label": "KyaraFlip live card shooter playfield",
+              style: { display: "block", borderRadius: 8, background: "#101827" },
+              children: [
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { width: WIDTH, height: HEIGHT, fill: "#101827" }),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M0 0 H360 V560 H0 Z", fill: "#142036" }),
+                stars.map((star) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  "circle",
+                  {
+                    cx: star.x,
+                    cy: star.y,
+                    r: star.r,
+                    fill: "#f8fbff",
+                    opacity: star.opacity
+                  },
+                  `${star.x}-${star.y}`
+                )),
+                state.bullets.map((bullet) => /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("g", { children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("rect", { x: bullet.x - 3, y: bullet.y - 16, width: "6", height: "20", rx: "3", fill: "#7dd3fc" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("circle", { cx: bullet.x, cy: bullet.y - 18, r: "5", fill: "#e0f2fe", opacity: "0.85" })
+                ] }, bullet.id)),
+                state.enemies.map((enemy) => /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${enemy.x - 34} ${enemy.y - 40}) scale(0.7)`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  LiveCardShip,
+                  {
+                    name: enemy.card.name,
+                    imageUrl: enemy.card.imageUrl,
+                    subtitle: enemy.card.subtitle,
+                    variant: enemy.variant,
+                    size: 96
+                  }
+                ) }, enemy.id)),
+                /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("g", { transform: `translate(${state.player.x - 48} ${state.player.y - 56})`, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                  LiveCardShip,
+                  {
+                    name: resolvedPlayerCard.name,
+                    imageUrl: resolvedPlayerCard.imageUrl,
+                    subtitle: resolvedPlayerCard.subtitle,
+                    variant: "cat",
+                    size: 96
+                  }
+                ) })
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(LiveCardShooterHud, { state })
+        ] }),
         /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", gap: 12, paddingTop: 8, fontSize: 12 }, children: [
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Move: Arrow keys" }),
           /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { children: "Shoot: Space" }),
