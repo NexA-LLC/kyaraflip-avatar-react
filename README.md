@@ -71,6 +71,7 @@ Turns a live-card/artifact identity into an upward-facing shooter ship while pre
 - `className?: string`
 
 Playable vertical shooter prototype using live-card ships. Arrow keys move, Space shoots, and `R` restarts after game over.
+The game scene stays in SVG while score/life/game-over HUD is rendered as DOM, so UI can be inspected and tuned separately from the playfield renderer.
 
 ## Notes
 
@@ -83,6 +84,7 @@ Playable vertical shooter prototype using live-card ships. Arrow keys move, Spac
 
 - Codex/game-facing workflow notes live in [`docs/codex-game-development.md`](docs/codex-game-development.md).
 - Browser demo: [`examples/live-card-shooter.html`](examples/live-card-shooter.html).
+- Character/game-facing changes should keep state outside renderers, use DOM HUD/control overlays, and include screenshot or browser evidence for visual review.
 
 ## Credits
 
