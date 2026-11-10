@@ -1,6 +1,6 @@
 # AGENTS.md
 
-KyaraFlip avatar React package 向けの作業ルールです。上位の `/Users/nariya/prj/web/AGENTS.md` も必ず読むこと。
+KyaraFlip avatar React package 向けの作業ルールです。開発・運用ルールは本 `AGENTS.md` に記載し、共通資料は [flow-common](https://github.com/NexA-LLC/flow-common) を参照する。別ユーザーの絶対パスに依存しない。
 
 ## Project Scope
 
